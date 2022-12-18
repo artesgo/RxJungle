@@ -1,0 +1,37 @@
+@use './mixins.scss' as m;
+
+section {
+  padding: 10px;
+}
+section.half {
+  width: 50%;
+  &-dt {
+    @include m.dt-only() {
+      width: 50%;
+    }
+  }
+}
+section.third {
+  width: calc(100% / 3);
+  &-dt {
+    @include m.dt-only() {
+      width: calc(100% / 3);
+    }
+  }
+}
+section.two-third {
+  width: calc(100% / 3 * 2);
+  &-dt {
+    @include m.dt-only() {
+      width: calc(100% / 3 * 2);
+    }
+  }
+}
+section.quarter {
+  width: 25%;
+  &-dt {
+    @include m.dt-only() {
+      width: 25%;
+    }
+  }
+}

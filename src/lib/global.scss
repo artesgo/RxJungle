@@ -1,0 +1,84 @@
+@use "./styles/partials.scss" as s;
+
+* {
+  font-family: 'Quicksand', 'Courier New', Courier, monospace;
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  padding: 0;
+  overflow-y: scroll;
+  height: 100vh;
+}
+
+p {
+  font-size: 1.25rem;
+}
+
+main {
+  margin: 0 auto;
+  margin-bottom: s.$unit * 4;
+  padding: 10px;
+  max-width: 800px;
+}
+
+.app {
+  min-height: 100vh;
+  --animLength: 0ms;
+  --controlHeight: 30px;
+  --controlFontSize: 1.2rem;
+  --unit: 10px;
+
+  &.loaded {
+    --animLength: 1000ms;
+  }
+  &.searing {
+    --placeholder: #F30;
+    --bg: #ededed;
+    --light-bg: #fefefe;
+    --fg: #333;
+    --light-fg: #4a4a4a;
+  }
+  &.void {
+    --placeholder: #FC0;
+    --bg: #333;
+    --light-bg: #4a4a4a;
+    --fg: #ededed;
+    --light-fg: #fefefe;
+  }
+  background: #333;
+  background: var(--bg);
+  color: var(--fg);
+  transition: var(--animLength);
+}
+
+.emulate-button {
+  background: var(--light-bg);
+  margin: 0 auto;
+  padding: 0 10px;
+
+  button {
+    border: none;
+  }
+}
+
+/* width */
+::-webkit-scrollbar {
+  width: 5px;
+}
+
+/* Track */
+::-webkit-scrollbar-track {
+  background: #f1f1f1;
+}
+
+/* Handle */
+::-webkit-scrollbar-thumb {
+  background: #888;
+}
+
+/* Handle on hover */
+::-webkit-scrollbar-thumb:hover {
+  background: #555;
+}
