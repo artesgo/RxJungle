@@ -1,8 +1,9 @@
 <script lang='ts'>
 	import Button from '$lib/components/cta/Button.svelte';
 	import Input from '$lib/components/input/Input.svelte';
-	import { last, first, debug } from '$lib/operators';
-	import { filterArray } from '$lib/operators/array/filter';
+	import { arrayLast, arrayFirst, debug } from '$lib/operators';
+	import { arrayFilter } from '$lib/operators/array/filter';
+	import { arrayMap } from '$lib/operators/array/map';
 	import type { Product } from '$lib/products/product';
   import { products } from '$lib/products/products-mock';
   import { BehaviorSubject, Observable } from 'rxjs';
@@ -19,23 +20,34 @@
 
   function applyLast() {
     _products$ = _products$.pipe(
-      last(),
+      arrayLast(),
     )
   }
 
   function applyFirst() {
     _products$ = _products$.pipe(
-      first(),
+      arrayFirst(),
     )
   }
 
   function applyFilter() {
     _products$ = _products$.pipe(
-      filterArray((item) => {
+      arrayFilter((item) => {
         if (prop && value) {
-          return (item as Product)[prop].toString() === value
+          return item[prop].toString() === value
         }
         return true;
+      })
+    )
+  }
+
+  function applyMap() {
+    _products$ = _products$.pipe(
+      arrayMap((item) => {
+        return {
+          ...item,
+          name: item[transform].replace(term, '')
+        };
       })
     )
   }
@@ -48,6 +60,8 @@
 
   let prop: keyof Product;
   let value: string;
+  let transform: keyof Omit<Product, 'price' | 'rating'>;
+  let term: string;
 </script>
 
 <h1>First Task</h1>
@@ -96,6 +110,24 @@
 
 <div class="mt-1">
   <h2>Transform Operations</h2>
+  <Input
+    bind:value={transform}
+    id={'transform'}
+    name={'transform'}
+    label={'String.replace(term, "")'}
+    placeholder={'Property to replace...'}
+    type={'text'}
+  />
+  <Input
+    bind:value={term}
+    id={'term'}
+    name={'term-value'}
+    label={'Replace Term'}
+    placeholder={'Replace value...'}
+    type={'text'}
+  />
+  <Button style="primary" width="inline" on:click={applyMap}>Apply Map Operator</Button>
+  <hr />
 </div>
 
 <div class='mt-1'>

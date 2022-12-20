@@ -1,6 +1,6 @@
 import { filter, map, pipe, type MonoTypeOperatorFunction } from "rxjs";
 
-export function last<T>(): MonoTypeOperatorFunction<Array<T>> {
+export function arrayLast<T>(): MonoTypeOperatorFunction<Array<T>> {
   return pipe(
     filter(items => items.length > 0),
     map((items) => {
